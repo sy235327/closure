@@ -75,7 +75,14 @@ class SerializableClosure implements Serializable
             $this->scope->toserialize++;
         }
     }
-
+    public function __serialize()
+    {
+    return $this->serialize();
+    }
+    public function __unserialize($data)
+    {
+    $this->unserialize($data);
+    }
     /**
      * Get the Closure object
      *
