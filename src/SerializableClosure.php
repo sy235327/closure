@@ -62,6 +62,16 @@ class SerializableClosure implements Serializable
     /** Array recursive constant*/
     const ARRAY_RECURSIVE_KEY = '¯\_(ツ)_/¯';
 
+    public function __serialize()
+    {
+        return $this->serialize();
+    }
+
+    public function __unserialize($data)
+    {
+        $this->unserialize($data);
+    }
+
     /**
      * Constructor
      *
@@ -366,7 +376,7 @@ class SerializableClosure implements Serializable
      * @param $data
      * @param ClosureScope|SplObjectStorage|null $storage
      */
-    public static function wrapClosures(&$data, SplObjectStorage $storage = null)
+    public static function wrapClosures(&$data, SplObjectStorage|null $storage = null)
     {
         if($storage === null){
             $storage = static::$context->scope;
@@ -439,7 +449,7 @@ class SerializableClosure implements Serializable
      * @param $data
      * @param SplObjectStorage|null $storage
      */
-    public static function unwrapClosures(&$data, SplObjectStorage $storage = null)
+    public static function unwrapClosures(&$data, SplObjectStorage|null $storage = null)
     {
         if($storage === null){
             $storage = static::$context->scope;
